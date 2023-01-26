@@ -24,7 +24,7 @@ def _parse_galtable(galobj, name):
     else:
         parent = os.path.dirname(intro.resolve_name('phangsgal').__file__)
         table_name = get_pkg_data_filename('data/phangs_sample_table_v1p6.fits',
-                                        package='phangs')
+                                        package='phangsgal')
     galtable = Table.read(table_name)
     hits = [x for x in galtable if name.lower() in x['alias']]
     # import pdb; pdb.set_trace()
@@ -212,7 +212,7 @@ class PhangsGalaxy(object):
             warnings.warn('Radius must be specified with astropy.unit')
             return(None)
         table_name = get_pkg_data_filename('data/RCtable_Nov2019.fits',
-                                           package='phangs')
+                                           package='phangsgal')
         rctable = Table.read(table_name)
         idx = (rctable['Galaxy'] == self.name.lower())
 
@@ -222,7 +222,7 @@ class PhangsGalaxy(object):
 
 
         dist_table_name = get_pkg_data_filename('data/RC_assumed_distance.txt',
-                                                package='phangs')
+                                                package='phangsgal')
         dist_table = Table.read(dist_table_name, format='ascii')
         dist_idx = (dist_table['ID'] == self.name.lower())
         if ~np.any(dist_idx):
