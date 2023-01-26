@@ -22,7 +22,7 @@ def _parse_galtable(galobj, name):
         # TODO: This isn't right
         table_name = fl[-1]
     else:
-        parent = os.path.dirname(intro.resolve_name('phangs').__file__)
+        parent = os.path.dirname(intro.resolve_name('phangsgal').__file__)
         table_name = get_pkg_data_filename('data/phangs_sample_table_v1p6.fits',
                                         package='phangs')
     galtable = Table.read(table_name)
