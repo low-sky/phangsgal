@@ -24,7 +24,7 @@ def _parse_galtable(galobj, name):
     else:
         parent = os.path.dirname(intro.resolve_name('phangsgal').__file__)
         table_name = get_pkg_data_filename('data/phangs_sample_table_v1p6.fits',
-                                        package='phangsgal')
+                                           package='phangsgal')
     galtable = Table.read(table_name)
     hits = [x for x in galtable if name.lower() in x['alias']]
     # import pdb; pdb.set_trace()
