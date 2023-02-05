@@ -187,7 +187,31 @@ class PhangsGalaxy(object):
         if returnXY:
             return (Xgal.to(u.pc), Ygal.to(u.pc))
         else:
-            return Rgal.to(u.pc)
+            return (Rgal.to(u.pc))
+
+    def xy_to_sky(self, Xgal, Ygal):
+        # Convert coordinates in the plane of the Galaxy to sky coordinates.
+        Yplane = Ygal * np.cos(self.inclination)
+        Xplane = Xgal
+        Rplane = (Xplane**2 + Yplane**2)**0.5
+        GalPA = np.arctan2(Yplane, Xplane)
+        GCdist = np.arctan(Rplane / self.distance)
+        PA = GalPA + self.position_angle
+        NewCoords = self.center_position.directional_offset_by(PA, GCdist)
+        return(NewCoords)
+
+    def xy_to_image(self, Xgal, Ygal, header):
+        # Convert coordinates in the plane of the Galaxy to sky coordinates.
+        Yplane = Ygal * np.cos(self.inclination)
+        Xplane = Xgal
+        Rplane = (Xplane**2 + Yplane**2)**0.5
+        GalPA = np.arctan2(Yplane, Xplane)
+        GCdist = np.arctan(Rplane / self.distance)
+        PA = GalPA + self.position_angle
+        skycoord = self.center_position.directional_offset_by(PA, GCdist)
+        w = WCS(header)
+        pix = w.world_to_pixel(skycoord)
+        return(pix)
 
     def position_angles(self, skycoord=None, ra=None, dec=None,
                         header=None):
